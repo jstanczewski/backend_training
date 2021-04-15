@@ -36,5 +36,5 @@ class Movie(Model):
         return f"{self.title} ({self.released.year}) - {self.genre.name}"
 
     # def save(self):
-    #     bonus = '123'
+    #     self.title = self.title.capitalize()
     #     super(Movie, self).save()
