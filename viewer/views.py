@@ -1,6 +1,7 @@
 from logging import getLogger
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.urls import reverse, reverse_lazy
 from viewer.models import Movie, Genre
 from django.views import View
 from django.views.generic import TemplateView, ListView, FormView
@@ -17,6 +18,7 @@ class MoviesView(ListView):
 class MovieCreateView(FormView):
     template_name = "form.html"
     form_class = MovieForm
+    success_url = reverse_lazy("movie_create")
 
     def form_valid(self, form):
         result = super().form_valid(form)

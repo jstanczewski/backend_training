@@ -51,7 +51,7 @@ class MovieForm(Form):
     def clean(self):
         result = super().clean()
         if result["genre"].name == "Horror" and result["rating"] > 5:
-            self.add_error("genre", "")
-            self.add_error("rating", "")
+            self.add_error("genre", "error - genre")
+            self.add_error("rating", "error - rating")
             raise ValidationError("A horror movie cannot be rated above 5!")
         return result
