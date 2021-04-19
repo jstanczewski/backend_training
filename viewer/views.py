@@ -4,10 +4,16 @@ from django.http import HttpResponse
 from django.urls import reverse, reverse_lazy
 from viewer.models import Movie, Genre
 from django.views import View
-from django.views.generic import TemplateView, ListView, FormView, CreateView, UpdateView
+from django.views.generic import TemplateView, ListView, FormView, CreateView, UpdateView, DeleteView
 from viewer.forms import MovieForm
 
 LOGGER = getLogger()
+
+
+class MovieDeleteView(DeleteView):
+    template_name = 'movie_confirm_delete.html'
+    model = Movie
+    success_url = reverse_lazy('movies')
 
 
 class MovieUpdateView(UpdateView):
