@@ -5,8 +5,9 @@ from django.forms import (
     IntegerField,
     DateField,
     Textarea,
+    ModelForm,
 )
-from viewer.models import Genre
+from viewer.models import Genre, Movie
 import re
 from datetime import date
 from django.core.exceptions import ValidationError
@@ -36,12 +37,20 @@ class PastDateField(DateField):
         return date(year=result.year, month=result.month, day=1)
 
 
-class MovieForm(Form):
-    title = CharField(max_length=170, validators=[capitalized_validator])
-    genre = ModelChoiceField(queryset=Genre.objects)
+class MovieForm(ModelForm):
+    class Meta:
+        model = Movie
+        fields = '__all__'
+
+    title = CharField(validators=[capitalized_validator])
     rating = IntegerField(min_value=1, max_value=10)
     released = PastDateField()
-    description = CharField(widget=Textarea, required=False)
+
+    # title = CharField(max_length=170, validators=[capitalized_validator])
+    # genre = ModelChoiceField(queryset=Genre.objects)
+    # rating = IntegerField(min_value=1, max_value=10)
+    # released = PastDateField()
+    # description = CharField(widget=Textarea, required=False)
 
     def clean_description(self):
         initial = self.cleaned_data["description"]
@@ -51,7 +60,5 @@ class MovieForm(Form):
     def clean(self):
         result = super().clean()
         if result["genre"].name == "Horror" and result["rating"] > 5:
-            self.add_error("genre", "error - genre")
-            self.add_error("rating", "error - rating")
             raise ValidationError("A horror movie cannot be rated above 5!")
         return result
