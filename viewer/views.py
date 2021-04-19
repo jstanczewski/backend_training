@@ -31,8 +31,9 @@ class MovieCreateView(FormView):
         return result
 
     def form_invalid(self, form):
-        LOGGER.warning('User provided and invalid data!')
+        LOGGER.warning("User provided and invalid data!")
         return super().form_invalid(form)
+
 
 # class MoviesView(TemplateView):
 #     template_name = 'movies.html'
