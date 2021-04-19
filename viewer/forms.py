@@ -40,7 +40,7 @@ class PastDateField(DateField):
 class MovieForm(ModelForm):
     class Meta:
         model = Movie
-        fields = '__all__'
+        fields = "__all__"
 
     title = CharField(validators=[capitalized_validator])
     rating = IntegerField(min_value=1, max_value=10)

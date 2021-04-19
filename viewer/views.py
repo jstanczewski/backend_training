@@ -4,26 +4,33 @@ from django.http import HttpResponse
 from django.urls import reverse, reverse_lazy
 from viewer.models import Movie, Genre
 from django.views import View
-from django.views.generic import TemplateView, ListView, FormView, CreateView, UpdateView, DeleteView
+from django.views.generic import (
+    TemplateView,
+    ListView,
+    FormView,
+    CreateView,
+    UpdateView,
+    DeleteView,
+)
 from viewer.forms import MovieForm
 
 LOGGER = getLogger()
 
 
 class MovieDeleteView(DeleteView):
-    template_name = 'movie_confirm_delete.html'
+    template_name = "movie_confirm_delete.html"
     model = Movie
-    success_url = reverse_lazy('movies')
+    success_url = reverse_lazy("movies")
 
 
 class MovieUpdateView(UpdateView):
-    template_name = 'form.html'
+    template_name = "form.html"
     model = Movie
     form_class = MovieForm
-    success_url = reverse_lazy('movies')
+    success_url = reverse_lazy("movies")
 
     def form_invalid(self, form):
-        LOGGER.warning('User provided invalid data while updating a movie!')
+        LOGGER.warning("User provided invalid data while updating a movie!")
         return super().form_valid(form)
 
 
