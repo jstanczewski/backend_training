@@ -10,7 +10,8 @@ from django.views.generic import (
     FormView,
     CreateView,
     UpdateView,
-    DeleteView, DetailView
+    DeleteView,
+    DetailView,
 )
 from viewer.forms import MovieForm
 
@@ -18,7 +19,7 @@ LOGGER = getLogger()
 
 
 class MovieDetailsView(DetailView):
-    template_name = 'detail.html'
+    template_name = "detail.html"
     model = Movie
 
 
