@@ -9,10 +9,7 @@
     <ul>
         {% for movie in object_list %}
         <li>
-            {{ movie.title }} ({{ movie.released.year }}) <br>
-            Genre - {{ movie.genre.name }} <br>
-            Rating - {{ movie.rating }} <br>
-            Description - {{ movie.description }}
+            <a href="{% url 'movie_details' movie.id %}">{{ movie.title }} ({{ movie.released.year }})</a>
         </li>
         {% endfor %}
     </ul>

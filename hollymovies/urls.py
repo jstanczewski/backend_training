@@ -20,14 +20,17 @@ from viewer.views import (
     MoviesView,
     MovieCreateView,
     MovieUpdateView,
-    MovieDeleteView,
+    MovieDeleteView, MovieDetailsView
 )
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("hello/", hello, name="hello"),
     path("movies/", MoviesView.as_view(), name="movies"),
+    path('movies/<pk>/', MovieDetailsView.as_view(), name='movie_details'),
     path("movies/create/", MovieCreateView.as_view(), name="movie_create"),
     path("movies/update/<pk>/", MovieUpdateView.as_view(), name="movie_update"),
-    path("movies/delete/<pk>", MovieDeleteView.as_view(), name="movie_delete"),
+    path("movies/delete/<pk>/", MovieDeleteView.as_view(), name="movie_delete"),
 ]
+
+# pk = primary key

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}
+Film: {{ object.title }}
+{% endblock %}
+
+{% block content %}
+<h1>{{ object.title }}</h1>
+({{ object.genre }}) {{ object.released }}<br><br>
+{{ object.description }} <br><br>
+Rating - {{ object.rating }}/10
+{% endblock %}
