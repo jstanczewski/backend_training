@@ -27,10 +27,10 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("hello/", hello, name="hello"),
     path("movies/", MoviesView.as_view(), name="movies"),
-    path('movies/<pk>/', MovieDetailsView.as_view(), name='movie_details'),
     path("movies/create/", MovieCreateView.as_view(), name="movie_create"),
-    path("movies/update/<pk>/", MovieUpdateView.as_view(), name="movie_update"),
-    path("movies/delete/<pk>/", MovieDeleteView.as_view(), name="movie_delete"),
+    path('movies/<int:pk>/', MovieDetailsView.as_view(), name='movie_details'),
+    path("movies/update/<int:pk>/", MovieUpdateView.as_view(), name="movie_update"),
+    path("movies/delete/<int:pk>/", MovieDeleteView.as_view(), name="movie_delete"),
 ]
 
 # pk = primary key
