@@ -4,11 +4,17 @@ Film: {{ object.title }}
 {% endblock %}
 
 {% block content %}
+
+{% autoescape on %}
 <h1>{{ object.title }}</h1>
 ({{ object.genre }}) {{ object.released }}<br><br>
-{{ object.description }} <br><br>
+{{ object.description | linebreaks }} <br><br>
 Rating - {{ object.rating }}/10
 <br><br>
+<!--{{ list | join:"-&#45;&#45;^-&#45;&#45;" }}-->
+{{ list | first }}
+<br>
+{% endautoescape %}
 <a href="{% url 'movie_update' movie.id %}" class="btn btn-success">Update</a>
 <a href="{% url 'movie_delete' movie.id %}" class="btn btn-danger">Delete</a>
 {% endblock %}
