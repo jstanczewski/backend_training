@@ -21,7 +21,7 @@ LOGGER = getLogger()
 class MovieDetailsView(DetailView):
     template_name = "detail.html"
     model = Movie
-    extra_context = {'list': ['A', 'B', 'C']}
+    # extra_context = {'list': ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']}
 
 
 class MovieDeleteView(DeleteView):

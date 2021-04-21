@@ -12,7 +12,9 @@ Film: {{ object.title }}
 Rating - {{ object.rating }}/10
 <br><br>
 <!--{{ list | join:"-&#45;&#45;^-&#45;&#45;" }}-->
-{{ list | first }}
+<!--{{ list | length }}-->
+<!--<br>-->
+<!--{{ list | slice:":5" }}-->
 <br>
 {% endautoescape %}
 <a href="{% url 'movie_update' movie.id %}" class="btn btn-success">Update</a>
