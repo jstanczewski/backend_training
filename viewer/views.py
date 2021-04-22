@@ -1,17 +1,11 @@
 from logging import getLogger
-
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import LoginView
 from django.shortcuts import render
-from django.http import HttpResponse
-from django.urls import reverse, reverse_lazy
-from viewer.models import Movie, Genre
-from django.views import View
+from django.urls import reverse_lazy
+from viewer.models import Movie
 from django.views.generic import (
     TemplateView,
     ListView,
-    FormView,
     CreateView,
     UpdateView,
     DeleteView,
@@ -53,7 +47,6 @@ class MoviesView(ListView):
     model = Movie
 
 
-# FormView -> CreateView
 class MovieCreateView(LoginRequiredMixin, CreateView):
     template_name = "form.html"
     form_class = MovieForm

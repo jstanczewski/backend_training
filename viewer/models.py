@@ -27,14 +27,9 @@ class Movie(Model):
     released = DateField()
     description = TextField()
     created = DateTimeField(auto_now_add=True)
-    # bonus = TextField(null=True, blank=True)
 
     def __str__(self):
         return f"{self.title} ({self.released.year}) - {self.genre.name}"
 
     def __repr__(self):
         return f"{self.title} ({self.released.year}) - {self.genre.name}"
-
-    # def save(self):
-    #     self.title = self.title.capitalize()
-    #     super(Movie, self).save()

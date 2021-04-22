@@ -13,9 +13,6 @@ from datetime import date
 from django.core.exceptions import ValidationError
 
 
-# phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$')
-
-
 class MyFieldClass(IntegerField):
     def clean(self):
         pass
@@ -46,17 +43,10 @@ class MovieForm(ModelForm):
     rating = IntegerField(min_value=1, max_value=10)
     released = PastDateField()
 
-    # title = CharField(max_length=170, validators=[capitalized_validator])
-    # genre = ModelChoiceField(queryset=Genre.objects)
-    # rating = IntegerField(min_value=1, max_value=10)
-    # released = PastDateField()
-    # description = CharField(widget=Textarea, required=False)
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for visible in self.visible_fields():
             visible.field.widget.attrs["class"] = "form-control"
-            # class="form-control"
 
     def clean_description(self):
         initial = self.cleaned_data["description"]
