@@ -21,7 +21,7 @@ from viewer.views import (
     MovieCreateView,
     MovieUpdateView,
     MovieDeleteView,
-    MovieDetailsView,
+    MovieDetailsView, IndexView
 )
 
 urlpatterns = [
@@ -32,6 +32,7 @@ urlpatterns = [
     path("movies/<int:pk>/", MovieDetailsView.as_view(), name="movie_details"),
     path("movies/update/<int:pk>/", MovieUpdateView.as_view(), name="movie_update"),
     path("movies/delete/<int:pk>/", MovieDeleteView.as_view(), name="movie_delete"),
+    path('', IndexView.as_view(), name='index')
 ]
 
 # pk = primary key

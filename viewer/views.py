@@ -18,6 +18,10 @@ from viewer.forms import MovieForm
 LOGGER = getLogger()
 
 
+class IndexView(TemplateView):
+    template_name = 'index.html'
+
+
 class MovieDetailsView(DetailView):
     template_name = "detail.html"
     model = Movie
