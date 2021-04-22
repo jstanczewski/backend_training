@@ -2,6 +2,7 @@ from logging import getLogger
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.urls import reverse, reverse_lazy
@@ -21,6 +22,10 @@ from viewer.forms import MovieForm
 LOGGER = getLogger()
 
 
+class SubmittableLoginView(LoginView):
+    template_name = "accounts/login.html"
+
+
 class IndexView(TemplateView):
     template_name = 'index.html'
 
@@ -34,14 +39,14 @@ class MovieDetailsView(DetailView):
 class MovieDeleteView(LoginRequiredMixin, DeleteView):
     template_name = "movie_confirm_delete.html"
     model = Movie
-    success_url = reverse_lazy("movies")
+    success_url = reverse_lazy("viewer:movies")
 
 
 class MovieUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "form.html"
     model = Movie
     form_class = MovieForm
-    success_url = reverse_lazy("movies")
+    success_url = reverse_lazy("viewer:movies")
 
     def form_invalid(self, form):
         LOGGER.warning("User provided invalid data while updating a movie!")
@@ -57,7 +62,7 @@ class MoviesView(ListView):
 class MovieCreateView(LoginRequiredMixin, CreateView):
     template_name = "form.html"
     form_class = MovieForm
-    success_url = reverse_lazy("movie_create")
+    success_url = reverse_lazy("viewer:movie_create")
 
     # def form_valid(self, form):
     #     result = super().form_valid(form)
