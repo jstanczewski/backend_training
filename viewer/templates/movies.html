@@ -10,12 +10,12 @@
     <ul>
         {% for movie in object_list %}
         <li>
-            <a href="{% url 'movie_details' movie.id %}">{{ movie.title }} ({{ movie.released.year }})</a><br>
+            <a href="{% url 'viewer:movie_details' movie.id %}">{{ movie.title }} ({{ movie.released.year }})</a><br>
             {{ movie.description | truncatewords:10 }}
         </li>
         {% empty %}
             <h3>Nothing to display!</h3>
         {% endfor %}
     </ul>
-    <a href="{% url 'movie_create' %}" class="btn btn-success">Add movie</a>
+    <a href="{% url 'viewer:movie_create' %}" class="btn btn-success">Add movie</a>
 {% endblock %}
