@@ -1,4 +1,7 @@
 from logging import getLogger
+
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.urls import reverse, reverse_lazy
@@ -28,13 +31,13 @@ class MovieDetailsView(DetailView):
     # extra_context = {'list': ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']}
 
 
-class MovieDeleteView(DeleteView):
+class MovieDeleteView(LoginRequiredMixin, DeleteView):
     template_name = "movie_confirm_delete.html"
     model = Movie
     success_url = reverse_lazy("movies")
 
 
-class MovieUpdateView(UpdateView):
+class MovieUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "form.html"
     model = Movie
     form_class = MovieForm
@@ -51,7 +54,7 @@ class MoviesView(ListView):
 
 
 # FormView -> CreateView
-class MovieCreateView(CreateView):
+class MovieCreateView(LoginRequiredMixin, CreateView):
     template_name = "form.html"
     form_class = MovieForm
     success_url = reverse_lazy("movie_create")
@@ -93,13 +96,13 @@ class MovieCreateView(CreateView):
 #         context={'movies': Movie.objects.all().order_by('-rating')}
 #     )
 
-
 def hello(request):
     s1 = request.GET.get("s1", "")
+    user = request.user
     return render(
         request,
         template_name="hello.html",
-        context={"adjectives": [s1, "beautiful", "wonderful", "great"]},
+        context={"adjectives": [s1, "beautiful", "wonderful", "great"], 'user': user},
     )
 
     # try:
