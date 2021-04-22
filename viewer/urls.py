@@ -6,7 +6,8 @@ from viewer.views import (
     MovieDeleteView,
     MovieDetailsView,
 )
-app_name = 'viewer'
+
+app_name = "viewer"
 
 urlpatterns = [
     path("movies/", MoviesView.as_view(), name="movies"),

@@ -15,16 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from viewer.views import (
-    hello, IndexView
-)
+from viewer.views import hello, IndexView
 
 urlpatterns = [
-    path('accounts/', include('accounts.urls', namespace='accounts')),
-    path('', IndexView.as_view(), name='index'),
+    path("accounts/", include("accounts.urls", namespace="accounts")),
+    path("", IndexView.as_view(), name="index"),
     path("admin/", admin.site.urls),
     path("hello/", hello, name="hello"),
-    path('viewer/', include('viewer.urls', namespace='viewer')),
+    path("viewer/", include("viewer.urls", namespace="viewer")),
 ]
 
 # pk = primary key

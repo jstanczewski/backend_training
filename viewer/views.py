@@ -17,7 +17,7 @@ LOGGER = getLogger()
 
 
 class IndexView(TemplateView):
-    template_name = 'index.html'
+    template_name = "index.html"
 
 
 class MovieDetailsView(DetailView):
@@ -63,5 +63,5 @@ def hello(request):
     return render(
         request,
         template_name="hello.html",
-        context={"adjectives": [s1, "beautiful", "wonderful", "great"], 'user': user},
+        context={"adjectives": [s1, "beautiful", "wonderful", "great"], "user": user},
     )

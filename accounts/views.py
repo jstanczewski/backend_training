@@ -7,5 +7,5 @@ class SubmittableLoginView(LoginView):
 
 
 class SubmittablePasswordChangeView(PasswordChangeView):
-    template_name = 'accounts/login.html'
-    success_url = reverse_lazy('index')
+    template_name = "accounts/login.html"
+    success_url = reverse_lazy("index")
