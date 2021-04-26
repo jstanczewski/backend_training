@@ -15,19 +15,19 @@ class SubmittablePasswordChangeView(PasswordChangeView):
 
 
 def signup(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = UserCreationForm(request.POST)
         print(form)
         if form.is_valid():
             form.save()
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password1')
+            username = form.cleaned_data.get("username")
+            raw_password = form.cleaned_data.get("password1")
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect('index')
+            return redirect("index")
         else:
             print("Errors present!!!")
 
     else:
         form = UserCreationForm()
-    return render(request, 'accounts/form.html', {'form': form})
+    return render(request, "accounts/form.html", {"form": form})
