@@ -11,12 +11,12 @@ Film: {{ object.title }}
 {{ object.description | linebreaks }} <br><br>
 Rating - {{ object.rating }}/10
 <br><br>
-<!--{{ list | join:"-&#45;&#45;^-&#45;&#45;" }}-->
-<!--{{ list | length }}-->
-<!--<br>-->
-<!--{{ list | slice:":5" }}-->
+{% comment %}
+{{ lista | length }} <br>
+{{ lista | slice:"5:" }}
+{% endcomment %}
 <br>
 {% endautoescape %}
-<a href="{% url 'viewer:movie_update' movie.id %}" class="btn btn-success">Update</a>
-<a href="{% url 'viewer:movie_delete' movie.id %}" class="btn btn-danger">Delete</a>
+<a href="{% url 'viewer:movie_update' object.id %}" class="btn btn-success">Update</a>
+<a href="{% url 'viewer:movie_delete' object.id %}" class="btn btn-danger">Delete</a>
 {% endblock %}
