@@ -1,6 +1,6 @@
 from django.contrib.auth.views import LoginView, PasswordChangeView
 from django.contrib.auth import login, authenticate
-from django.contrib.auth.forms import UserCreationForm
+from accounts.forms import SignUpForm
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 
@@ -16,7 +16,7 @@ class SubmittablePasswordChangeView(PasswordChangeView):
 
 def signup(request):
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = SignUpForm(request.POST)
         print(form)
         if form.is_valid():
             form.save()
@@ -29,5 +29,5 @@ def signup(request):
             print("Errors present!!!")
 
     else:
-        form = UserCreationForm()
+        form = SignUpForm()
     return render(request, "accounts/form.html", {"form": form})
