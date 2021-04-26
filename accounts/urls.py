@@ -1,7 +1,6 @@
 from django.contrib.auth.views import LogoutView
-from django.urls import path, include
+from django.urls import path
 from accounts.views import SubmittableLoginView, SubmittablePasswordChangeView, signup
-from django.contrib import admin
 
 
 app_name = "accounts"
