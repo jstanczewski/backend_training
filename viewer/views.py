@@ -22,9 +22,10 @@ class StaffRequiredMixin(UserPassesTestMixin):
         return self.request.user.is_staff
 
 
-class FirstNameRequiredMixin(UserPassesTestMixin):
+class NameRequiredMixin(UserPassesTestMixin):
     def test_func(self):
-        return self.request.user.first_name != ''
+        user = self.request.user
+        return self.request.user.first_name != '' and user.last_name != ''
 
 
 class IndexView(TemplateView):
@@ -41,6 +42,9 @@ class MovieDeleteView(StaffRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Movie
     success_url = reverse_lazy("viewer:movies")
     permission_required = 'viewer.delete_movie'
+
+    def test_func(self):
+        return super().test_func() and self.request.user.is_superuser
 
 
 class MovieUpdateView(PermissionRequiredMixin, UpdateView):
@@ -60,7 +64,7 @@ class MoviesView(ListView):
     model = Movie
 
 
-class MovieCreateView(FirstNameRequiredMixin, PermissionRequiredMixin, CreateView):
+class MovieCreateView(NameRequiredMixin, PermissionRequiredMixin, CreateView):
     template_name = "form.html"
     form_class = MovieForm
     success_url = reverse_lazy("viewer:movie_create")
