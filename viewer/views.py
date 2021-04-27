@@ -1,5 +1,6 @@
 from logging import getLogger
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, \
+    UserPassesTestMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from viewer.models import Movie
@@ -16,6 +17,16 @@ from viewer.forms import MovieForm
 LOGGER = getLogger()
 
 
+class StaffRequiredMixin(UserPassesTestMixin):
+    def test_func(self):
+        return self.request.user.is_staff
+
+
+class FirstNameRequiredMixin(UserPassesTestMixin):
+    def test_func(self):
+        return self.request.user.first_name != ''
+
+
 class IndexView(TemplateView):
     template_name = "index.html"
 
@@ -25,7 +36,7 @@ class MovieDetailsView(DetailView):
     model = Movie
 
 
-class MovieDeleteView(PermissionRequiredMixin, DeleteView):
+class MovieDeleteView(StaffRequiredMixin, PermissionRequiredMixin, DeleteView):
     template_name = "movie_confirm_delete.html"
     model = Movie
     success_url = reverse_lazy("viewer:movies")
@@ -49,7 +60,7 @@ class MoviesView(ListView):
     model = Movie
 
 
-class MovieCreateView(PermissionRequiredMixin, CreateView):
+class MovieCreateView(FirstNameRequiredMixin, PermissionRequiredMixin, CreateView):
     template_name = "form.html"
     form_class = MovieForm
     success_url = reverse_lazy("viewer:movie_create")
