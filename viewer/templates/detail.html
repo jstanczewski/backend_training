@@ -8,7 +8,7 @@ Film: {{ object.title }}
 {% autoescape on %}
 <h1>{{ object.title }}</h1>
 ({{ object.genre }}) {{ object.released }}<br><br>
-{{ object.description | linebreaks }} <br><br>
+{{ object.description | linebreaksbr }} <br><br>
 Rating - {{ object.rating }}/10
 <br><br>
 {% comment %}
@@ -16,6 +16,10 @@ Rating - {{ object.rating }}/10
 {{ lista | slice:"5:" }}
 {% endcomment %}
 <br>
+{% if object.image %}
+<img src="{{ object.image.url }}">
+{% endif %}
+
 {% endautoescape %}
 <a href="{% url 'viewer:movie_update' object.id %}" class="btn btn-success">Update</a>
 <a href="{% url 'viewer:movie_delete' object.id %}" class="btn btn-danger">Delete</a>
