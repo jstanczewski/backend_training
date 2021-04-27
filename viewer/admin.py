@@ -9,6 +9,9 @@ class MovieAdmin(ModelAdmin):
 
     ordering = ['id']
     list_display = ['id', 'title', 'genre', 'released_year']
+    list_display_links = ['id', 'title']
+    list_per_page = 10
+    list_filter = ['genre']
 
 
 site.register(Genre)
