@@ -3,7 +3,12 @@ from viewer.models import Genre, Movie
 
 
 class MovieAdmin(ModelAdmin):
-    list_display = ['id', 'title', 'genre']
+    @staticmethod
+    def released_year(obj):
+        return obj.released.year
+
+    ordering = ['id']
+    list_display = ['id', 'title', 'genre', 'released_year']
 
 
 site.register(Genre)
