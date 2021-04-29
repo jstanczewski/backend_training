@@ -9,7 +9,7 @@ class MovieAdmin(ModelAdmin):
 
     @staticmethod
     def cleanup_description(modeladmin, request, queryset):
-        queryset.update(description='')
+        queryset.update(description="")
 
     # ordering = ['id']
     # list_display = ['id', 'title', 'genre', 'released_year']

@@ -7,13 +7,14 @@ from django.db.models import (
     ForeignKey,
     TextField,
     IntegerField,
-    DO_NOTHING, ImageField
+    DO_NOTHING,
+    ImageField,
 )
 from django.core.validators import FileExtensionValidator
 
 
 def get_upload_path(instance, filename):
-    return os.path.join(f'movies/movie_{instance.id}', filename)
+    return os.path.join(f"movies/movie_{instance.id}", filename)
 
 
 class Genre(Model):
@@ -32,7 +33,25 @@ class Movie(Model):
     rating = IntegerField()
     released = DateField()
     description = TextField()
-    image = ImageField(null=True, blank=True, upload_to=get_upload_path, validators=[FileExtensionValidator(allowed_extensions=['bmp', 'jpg', 'jpeg', 'jpe', 'gif', 'tif', 'tiff', 'png'])])
+    image = ImageField(
+        null=True,
+        blank=True,
+        upload_to=get_upload_path,
+        validators=[
+            FileExtensionValidator(
+                allowed_extensions=[
+                    "bmp",
+                    "jpg",
+                    "jpeg",
+                    "jpe",
+                    "gif",
+                    "tif",
+                    "tiff",
+                    "png",
+                ]
+            )
+        ],
+    )
     created = DateTimeField(auto_now_add=True)
 
     def __str__(self):

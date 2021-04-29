@@ -1,6 +1,9 @@
 from logging import getLogger
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, \
-    UserPassesTestMixin
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    UserPassesTestMixin,
+)
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from viewer.models import Movie
@@ -25,7 +28,7 @@ class StaffRequiredMixin(UserPassesTestMixin):
 class NameRequiredMixin(UserPassesTestMixin):
     def test_func(self):
         user = self.request.user
-        return self.request.user.first_name != '' and user.last_name != ''
+        return self.request.user.first_name != "" and user.last_name != ""
 
 
 class IndexView(TemplateView):
@@ -41,7 +44,7 @@ class MovieDeleteView(StaffRequiredMixin, PermissionRequiredMixin, DeleteView):
     template_name = "movie_confirm_delete.html"
     model = Movie
     success_url = reverse_lazy("viewer:movies")
-    permission_required = 'viewer.delete_movie'
+    permission_required = "viewer.delete_movie"
 
     def test_func(self):
         return super().test_func() and self.request.user.is_superuser
@@ -52,7 +55,7 @@ class MovieUpdateView(PermissionRequiredMixin, UpdateView):
     model = Movie
     form_class = MovieForm
     success_url = reverse_lazy("viewer:movies")
-    permission_required = 'viewer.change_movie'
+    permission_required = "viewer.change_movie"
 
     def form_invalid(self, form):
         LOGGER.warning("User provided invalid data while updating a movie!")
@@ -68,7 +71,7 @@ class MovieCreateView(NameRequiredMixin, PermissionRequiredMixin, CreateView):
     template_name = "form.html"
     form_class = MovieForm
     success_url = reverse_lazy("viewer:movie_create")
-    permission_required = 'viewer.add_movie'
+    permission_required = "viewer.add_movie"
 
     def form_invalid(self, form):
         LOGGER.warning("User provided invalid data!")
