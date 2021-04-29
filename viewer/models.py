@@ -59,3 +59,7 @@ class Movie(Model):
 
     def __repr__(self):
         return f"{self.title} ({self.released.year}) - {self.genre.name}"
+
+    def save(self):
+        self.title = self.title.capitalize()
+        super(Movie, self).save()
